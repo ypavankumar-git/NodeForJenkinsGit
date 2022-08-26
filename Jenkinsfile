@@ -5,7 +5,7 @@ pipeline{
         stage('Build image'){
             steps{
                 sh 'ls'
-                sh 'echo RunningJob...'
+                sh 'echo RunningJob...TEST'
               }
             }
         }

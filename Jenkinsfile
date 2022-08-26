@@ -16,6 +16,7 @@ pipeline{
         stage('Tag Build'){
             steps{
                 sh 'git tag ${build_tag}'
+                sh 'git push --tags'
               }
             }
         stage('Build Image'){
@@ -29,7 +30,7 @@ pipeline{
             steps{
                 script { 
                     docker.withRegistry('', docker_creds_id ) { 
-                        nodeapp.tag(build_tag)
+                        //nodeapp.tag(build_tag)
                         nodeapp.push() 
                     }
                  } 

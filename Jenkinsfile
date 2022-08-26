@@ -7,9 +7,9 @@ pipeline{
     }
 
      environment{
-        docker_registry_nodeapp = "ypavankumar123/nodeexpressapp"
-        docker_creds_id = "e9aefd7f-157a-4320-9717-a00a33701190"
         build_tag = "build-${BUILD_NUMBER}"
+        docker_registry_nodeapp = "ypavankumar123/nodeexpressapp:${build_tag}"
+        docker_creds_id = "e9aefd7f-157a-4320-9717-a00a33701190"
     }
 
     stages{

@@ -1,0 +1,8 @@
+version: 0.2
+
+phases:
+  build: 
+    commands:
+      echo trying build....
+      docker build . -t nodeappcontainer
+      

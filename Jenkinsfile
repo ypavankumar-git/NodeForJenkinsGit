@@ -15,9 +15,12 @@ pipeline{
     stages{
         stage('Tag Build'){
             steps{
-                sh 'git tag ${build_tag}'
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: docker_creds_id, usernameVariable: 'git_username', passwordVariable: 'git_password']]) {
+                sh 'git tag -a ${build_tag} -m tag-for-${build_tag}'
+                sh 'git remote set-url origin https://PavanKumarY@bitbucket.org/codaglobal/nodeforjenkins.git'
                 sh 'git push --tags'
               }
+             }
             }
         stage('Build Image'){
             steps{

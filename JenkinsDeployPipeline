@@ -1,0 +1,54 @@
+pipeline{
+    agent any 
+    parameters {
+        string(name: 'BUILD_NUMBER_PARAM', defaultValue: '0', description: 'Build Number Parameter')
+    }
+    environment {
+        docker_registry_nodeapp = 'ypavankumar123/nodeexpressapp:build-'
+        docker_creds_id = 'e9aefd7f-157a-4320-9717-a00a33701190'
+    } 
+    stages{
+        stage('DEV'){
+            agent {
+                node { 
+                    label  'pavan-jenkins-hoster-instance' 
+                }
+            }
+            steps{
+                sh 'docker rm -f $(docker ps -aq)'
+                sh 'docker rmi $(docker images -aq)'
+                script {
+                dockerImage = docker.image("${docker_registry_nodeapp}${BUILD_NUMBER_PARAM}")
+                docker.withRegistry('', docker_creds_id) {
+                    dockerImage.pull()
+                }
+                sh "docker run -d ${docker_registry_nodeapp}${BUILD_NUMBER_PARAM}"
+            }
+            }
+
+
+        }
+        stage("QA"){
+            agent {
+                node { 
+                    label  'pavan-jenkins-hoster-instance-2' 
+                }
+            }
+            input {
+                message "Continue deploying to QA?"
+                ok "Yes"
+            }
+            steps{
+                sh 'docker rm -f $(docker ps -aq)'
+                sh 'docker rmi $(docker images -aq)'
+                script {
+                dockerImage = docker.image("${docker_registry_nodeapp}${BUILD_NUMBER_PARAM}")
+                docker.withRegistry('', docker_creds_id) {
+                    dockerImage.pull()
+                }
+                sh "docker run -d ${docker_registry_nodeapp}${BUILD_NUMBER_PARAM}"
+            }
+        }
+    }
+}
+}

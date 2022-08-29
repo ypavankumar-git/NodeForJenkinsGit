@@ -1,7 +1,7 @@
 version: 0.2
 
 phases:
-  pre-build:
+  pre_build:
     commands:
       echo Running Pre-Build
       docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
@@ -11,7 +11,7 @@ phases:
       echo trying build....
       docker build . -t ypavankumar123/nodeappcontainer
       echo docker build successfull
-  post-build:
+  post_build:
     commands:
       echo pushing image
       docker push ypavankumar123/nodeappcontainer

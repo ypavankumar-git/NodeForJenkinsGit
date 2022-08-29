@@ -14,5 +14,5 @@ phases:
   post_build:
     commands:
       echo pushing image
-      docker push ypavankumar123/nodeappcontainer
-      echo image pushed 
+      docker image push ypavankumar123/nodeappcontainer
+      echo image pushed123 

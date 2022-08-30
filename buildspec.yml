@@ -16,4 +16,4 @@ phases:
       echo pushing image
       docker image tag ypavankumar123/nodeappcontainer:latest ypavankumar123/nodeappcontainer:${CODEBUILD_BUILD_NUMBER}
       docker image push ypavankumar123/nodeappcontainer:${CODEBUILD_BUILD_NUMBER}
-      echo image pushed123 
+      echo image pushed123...
